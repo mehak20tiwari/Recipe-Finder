@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recipe Finder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-icon">🍽️</span>
+        <span class="logo-text">Recipe Finder</span>
+      </div>
+      
+      <div class="nav-menu" id="nav-menu">
+        <a href="#home" class="nav-link active" data-section="home">
+          <span class="nav-icon">🏠</span>
+          <span>Home</span>
+        </a>
+        <a href="#search" class="nav-link" data-section="search">
+          <span class="nav-icon">🔍</span>
+          <span>Search</span>
+        </a>
+        <a href="#favorites" class="nav-link" data-section="favorites">
+          <span class="nav-icon">❤️</span>
+          <span>Favorites</span>
+          <span class="favorites-count" id="favorites-count">0</span>
+        </a>
+        <a href="#categories" class="nav-link" data-section="categories">
+          <span class="nav-icon">📂</span>
+          <span>Categories</span>
+        </a>
+        <a href="#about" class="nav-link" data-section="about">
+          <span class="nav-icon">ℹ️</span>
+          <span>About</span>
+        </a>
+      </div>
+      
+      <div class="nav-toggle" id="nav-toggle">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Home Section -->
+    <section id="home-section" class="page-section active">
+      <header class="hero-section">
+        <h1>🍽️ Recipe Finder</h1>
+        <p class="hero-subtitle">Discover delicious recipes from around the world</p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">1000+</span>
+            <span class="stat-label">Recipes</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">50+</span>
+            <span class="stat-label">Categories</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100+</span>
+            <span class="stat-label">Countries</span>
+          </div>
+        </div>
+      </header>
+      
+      <div class="quick-search">
+        <h2>🔥 Popular Searches</h2>
+        <div class="quick-search-buttons">
+          <button class="quick-search-btn" onclick="app.quickSearch('chicken')">🐔 Chicken</button>
+          <button class="quick-search-btn" onclick="app.quickSearch('pasta')">🍝 Pasta</button>
+          <button class="quick-search-btn" onclick="app.quickSearch('beef')">🥩 Beef</button>
+          <button class="quick-search-btn" onclick="app.quickSearch('fish')">🐟 Fish</button>
+          <button class="quick-search-btn" onclick="app.quickSearch('dessert')">🍰 Dessert</button>
+          <button class="quick-search-btn" onclick="app.quickSearch('vegetarian')">🥗 Vegetarian</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search Section -->
+    <section id="search-section" class="page-section">
+      <div class="search-container">
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="Search for recipes (e.g., chicken, pasta, paneer)..." />
+          <button id="search-btn">🔍 Search</button>
+        </div>
+        
+        <div class="search-history" id="search-history"></div>
+      </div>
+
+      <div class="nav-tabs">
+        <button class="tab-btn active" data-tab="search">🔍 Search Results</button>
+        <button class="tab-btn" data-tab="favorites">❤️ Favorites</button>
+      </div>
+
+      <div id="search-results-section" class="content-section active">
+        <div id="loading" class="loading" style="display: none;">
+          <div class="spinner"></div>
+          <p>Searching for delicious recipes...</p>
+        </div>
+        <div id="recipe-list"></div>
+      </div>
+
+      <div id="favorites-results-section" class="content-section">
+        <div id="favorites-list"></div>
+      </div>
+    </section>
+
+    <!-- Favorites Section -->
+    <section id="favorites-section" class="page-section">
+      <header>
+        <h1>❤️ Your Favorite Recipes</h1>
+        <p>All your saved recipes in one place</p>
+      </header>
+      <div id="favorites-page-list"></div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories-section" class="page-section">
+      <header>
+        <h1>📂 Recipe Categories</h1>
+        <p>Explore recipes by category</p>
+      </header>
+      <div id="categories-list" class="categories-grid"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about-section" class="page-section">
+      <header>
+        <h1>ℹ️ About Recipe Finder</h1>
+      </header>
+      <div class="about-content">
+        <div class="about-card">
+          <h3>🎯 Our Mission</h3>
+          <p>To help food lovers discover amazing recipes from around the world and make cooking an enjoyable experience for everyone.</p>
+        </div>
+        <div class="about-card">
+          <h3>🌟 Features</h3>
+          <ul>
+            <li>Search thousands of recipes</li>
+            <li>Save your favorite recipes</li>
+            <li>Step-by-step cooking instructions</li>
+            <li>Video tutorials from YouTube</li>
+            <li>Ingredient lists with measurements</li>
+            <li>Recipe categories and cuisines</li>
+          </ul>
+        </div>
+        <div class="about-card">
+          <h3>🔗 Data Source</h3>
+          <p>All recipe data is provided by <a href="https://www.themealdb.com" target="_blank">TheMealDB</a>, a free and open recipe database.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recipe Detail Modal -->
+    <div id="recipe-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <img id="modal-image" src="" alt="">
+        </div>
+        <div class="modal-body">
+          <h2 id="modal-title"></h2>
+          <div class="recipe-meta" id="modal-meta"></div>
+          <div class="ingredients-section">
+            <h3>🥘 Ingredients</h3>
+            <div class="ingredients-list" id="modal-ingredients"></div>
+          </div>
+          <div class="instructions-section">
+            <h3>👨‍🍳 Instructions</h3>
+            <div class="instructions" id="modal-instructions"></div>
+          </div>
+          <div id="modal-youtube"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
